@@ -32,10 +32,10 @@ for working_copy in $working_copies; do
         # 1. branch
         # add if...else... to handle FWE
         current_version=$(cat "$working_copy/build.xml" | grep "name=\"ivy.deliver.revision\"" | cut -d '"' -f 4 | cut -d "-" -f 1 | cut -d "." -f 1-3)
+        echo $(echo $proj_URL | sed 's/trunk/branches\/'$current_version'-release/g')
+        # 2. version bump
         new_version_number=$(echo $current_version | cut -d "." -f 2 | awk '{print $1 +1}')
         new_version=$(echo $current_version | sed 's/\.[0-9]*\./\.'${new_version_number}'\./g')
-        echo $(echo $proj_URL | sed 's/trunk/branches\/'$new_version'/g')
-        # 2. version bump
     fi
 done
 
